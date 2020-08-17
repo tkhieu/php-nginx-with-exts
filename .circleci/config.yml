@@ -1,0 +1,16 @@
+orbs:
+    docker: circleci/docker@1.4.0
+  version: 2.1
+  workflows:
+    build-and-publish-docker-image:
+      jobs:
+        - docker/publish:
+            name: docker/publish-prod
+            dockerfile: prod.Dockerfile
+            image: $CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME
+            path: ./
+        - docker/publish:
+            name: docker/publish-dev
+            dockerfile: dev.Dockerfile
+            image: $CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME
+            path: ./
